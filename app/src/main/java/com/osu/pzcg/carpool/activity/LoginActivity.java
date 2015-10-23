@@ -1,4 +1,4 @@
-package com.osu.pzcg.carpool;
+package com.osu.pzcg.carpool.activity;
 
 
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.osu.pzcg.carpool.LoginAsync;
+import com.osu.pzcg.carpool.R;
 
 
 public class LoginActivity extends AppCompatActivity {
