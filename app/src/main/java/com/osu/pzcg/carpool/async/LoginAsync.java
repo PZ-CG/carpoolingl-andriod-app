@@ -16,8 +16,9 @@ import java.net.URI;
 /**
  * Created by GoThumbers on 10/7/15.
  */
-class LoginAsync extends AsyncTask<String, Void, String> {
+public class LoginAsync extends AsyncTask<String, Void, String> {
     private Context context;
+    public static String RESULT;
     public LoginAsync(Context context) {
         this.context = context;
     }
@@ -26,7 +27,7 @@ class LoginAsync extends AsyncTask<String, Void, String> {
         try {
             String username = params[0];
             String password = params[1];
-            String link = "http://pzcg.biz/register.php?user_name="+username+"&pass_word="+password;
+            String link = "http://pzcg.biz/login.php?user_name="+username+"&pass_word="+password;
             //String link = "http://pzcg.biz/register.php";
             System.out.println(link);
 
