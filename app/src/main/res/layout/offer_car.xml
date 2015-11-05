@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="30dp"
+                android:background="#FFFFCC">
+
+    <!-- departure -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Departure     "
+            android:textSize="15sp"/>
+        <ImageButton
+            android:id="@+id/publish_favorite_places"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/favorite_place"/>
+        <ImageButton
+            android:id="@+id/publish_current_location"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/locate"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <EditText
+            android:id="@+id/place"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <!-- destination -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Destination  "
+            android:textSize="15sp"/>
+        <ImageButton
+            android:id="@+id/publish_favorite_places2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/favorite_place"/>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+
+    <!-- date time picker -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="20dp">
+        <Button
+            android:id="@+id/publish_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showDatePickerDialog"/>
+        <Button
+            android:id="@+id/publish_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showTimePickerDialog"/>
+    </LinearLayout>
+
+    <!-- available seats -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available Seats"
+            android:textSize="15sp"/>
+        <Spinner
+            android:id="@+id/available_seats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/available_seats"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+</LinearLayout>
