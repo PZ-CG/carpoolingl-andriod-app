@@ -16,16 +16,18 @@ import java.util.Calendar;
 /**
  * Created by peihongzhong on 11/4/15.
  */
-public class TimePickerFragment extends DialogFragment
-        implements TimePickerDialog.OnTimeSetListener {
-
+public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+    private int button;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current time as the default values for the picker
+        Bundle bundle = this.getArguments();
+        if(bundle != null){
+            button = bundle.getInt("TIME",1);
+        }
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
-
         // Create a new instance of TimePickerDialog and return it
         return new TimePickerDialog(getActivity(),this, hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
@@ -33,7 +35,12 @@ public class TimePickerFragment extends DialogFragment
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         // Do something with the time chosen by the user
-        Log.w("DatePicker", "Date = " + minute);
-        ((TextView) getActivity().findViewById(R.id.publish_time)).setText(hourOfDay + ":" + minute);
+        if (button == 1){
+            Log.w("DatePicker", "Date = " + minute);
+            ((TextView) getActivity().findViewById(R.id.publish_time)).setText(hourOfDay + ":" + minute);
+        } else if (button == 2){
+            Log.w("DatePicker", "Date = " + minute);
+            ((TextView) getActivity().findViewById(R.id.publish_time_want)).setText(hourOfDay + ":" + minute);
+        }
     }
 }

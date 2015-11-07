@@ -24,15 +24,21 @@ public class CreateFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_create, container, false);
         Button offerButton = (Button) view.findViewById(R.id.offer);
-
+        Button wantButton = (Button) view.findViewById(R.id.want);
         offerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),OfferCar.class);
+                Intent intent = new Intent(getActivity(),OfferCarActivity.class);
                 startActivity(intent);
             }
         });
-
+        wantButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),WantCarActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

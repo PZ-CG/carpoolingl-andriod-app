@@ -2,17 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.osu.pzcg.carpool" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:hardwareAccelerated="false">
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/app_name"
@@ -25,23 +28,27 @@
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
-            android:label="Register">
+            android:label="Register" >
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:label="MainActivity">
+            android:label="MainActivity" >
         </activity>
         <activity
-            android:name=".activity.OfferCar"
-            android:label="OfferCar">
-        </activity>
-        <activity android:name="com.facebook.FacebookActivity"
+            android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
-        <provider android:authorities="com.facebook.app.FacebookContentProvider736911436441917"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <provider
             android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider736911436441917"
             android:exported="true" />
+
+        <activity android:name=".activity.WantCarActivity" >
+        </activity>
+        <activity android:name=".activity.OfferCarActivity" >
+        </activity>
     </application>
 
 </manifest>
