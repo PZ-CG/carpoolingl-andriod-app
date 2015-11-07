@@ -47,6 +47,8 @@
 
         <activity android:name=".activity.WantCarActivity" >
         </activity>
+        <activity android:name=".activity.OfferCarActicity" >
+        </activity>
         <activity android:name=".activity.OfferCarActivity" >
         </activity>
     </application>

@@ -1,10 +1,10 @@
 package com.osu.pzcg.carpool.activity;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,10 +15,7 @@ import com.osu.pzcg.carpool.R;
 
 import java.util.Calendar;
 
-/**
- * Created by peihongzhong on 11/3/15.
- */
-public class OfferCarActivity extends Activity {
+public class OfferCarActivity extends AppCompatActivity {
     private Spinner availableSeats;
     private EditText show_dep;
     private EditText show_des;
@@ -126,5 +123,5 @@ public class OfferCarActivity extends Activity {
         availableSeats.setOnItemSelectedListener(new CustomOnItemSelectedListener());
     }
 
-}
 
+}
