@@ -24,7 +24,6 @@ public class CreateFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_create, container, false);
         Button offerButton = (Button) view.findViewById(R.id.offer);
-        Button wantButton = (Button) view.findViewById(R.id.want);
         offerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
