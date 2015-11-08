@@ -37,6 +37,7 @@ public class OfferCar extends Activity {
         button = (ImageButton) findViewById(R.id.publish_favorite_places);
         builder = new AlertDialog.Builder(this);
         button.setOnClickListener(text_radio_dialog_listener);
+        str = getResources().getStringArray(R.array.place)[0];
     }
 
     View.OnClickListener text_radio_dialog_listener = new View.OnClickListener() {
@@ -45,7 +46,6 @@ public class OfferCar extends Activity {
             builder.setTitle(getResources().getString(R.string.place));
             builder.setSingleChoiceItems(getResources().getStringArray(R.array.place), 0, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
                 str = getResources().getStringArray(R.array.place)[which];
 
             }
