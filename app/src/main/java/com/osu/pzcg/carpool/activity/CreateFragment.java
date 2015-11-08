@@ -15,6 +15,8 @@ import com.osu.pzcg.carpool.R;
  * Created by peihongzhong on 10/31/15.
  */
 public class CreateFragment extends Fragment {
+    public Button offerButton;
+    public Button wantButton;
 
     public CreateFragment() {
     }
@@ -23,8 +25,8 @@ public class CreateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_create, container, false);
-        Button offerButton = (Button) view.findViewById(R.id.offer);
-        Button wantButton = (Button) view.findViewById(R.id.want);
+        offerButton = (Button) view.findViewById(R.id.offer);
+
         offerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +34,7 @@ public class CreateFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        wantButton = (Button) view.findViewById(R.id.want);
         wantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
