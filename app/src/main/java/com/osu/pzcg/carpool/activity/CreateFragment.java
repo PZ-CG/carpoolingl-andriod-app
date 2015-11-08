@@ -28,6 +28,8 @@ import java.util.concurrent.ExecutionException;
  */
 public class CreateFragment extends Fragment {
     public Button offerButton;
+    public Button wantButton;
+
     public ListView listView_main;
     public CardListAdpters cardListAdpters;
     public String result;
@@ -44,7 +46,15 @@ public class CreateFragment extends Fragment {
         offerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),OfferCar.class);
+                Intent intent = new Intent(getActivity(),OfferCarActivity.class);
+                startActivity(intent);
+            }
+        });
+        wantButton = (Button)view.findViewById(R.id.want);
+        wantButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),WantCarActivity.class);
                 startActivity(intent);
             }
         });

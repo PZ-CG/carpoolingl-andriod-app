@@ -28,6 +28,7 @@
         <item>home</item>
         <item>work</item>
     </string-array>
+    <string name="title_activity_offer_car">OfferCarActivity</string>
 
 </resources>
 
