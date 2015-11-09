@@ -36,9 +36,15 @@
         android:gravity="center_vertical">
         <EditText
             android:id="@+id/place"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"/>
+        <Button
+            android:id="@+id/choose_dep"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Map"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <!-- destination -->
@@ -66,8 +72,15 @@
         android:gravity="center_vertical">
         <EditText
             android:id="@+id/place2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"/>
+        <Button
+            android:id="@+id/choose_des"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Map"/>
     </LinearLayout>
 
 
@@ -107,5 +120,10 @@
             android:entries="@array/available_seats"
             android:gravity="center_vertical"/>
     </LinearLayout>
+    <Button
+        android:id="@+id/publish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create a carpool!"/>
 
 </LinearLayout>

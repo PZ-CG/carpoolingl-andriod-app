@@ -38,6 +38,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         if(button == 1){
             Log.w("DatePicker", "Date = " + year);
             ((Button) getActivity().findViewById(R.id.publish_date)).setText(month + 1 + "-" + day + "-" + year);
+            OfferCarActivity.OFFER_DATE = month + 1 + "-" + day + "-" + year;
         } else if (button == 2){
             Log.w("DatePicker", "Date = " + year);
             ((Button) getActivity().findViewById(R.id.publish_date_want)).setText(month + 1 + "-" + day + "-" + year);

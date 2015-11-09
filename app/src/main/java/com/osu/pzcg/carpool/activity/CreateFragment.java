@@ -3,6 +3,7 @@ package com.osu.pzcg.carpool.activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class CreateFragment extends Fragment {
     public CardListAdpters cardListAdpters;
     public String result;
     public JSONArray jArray;
+    public String myUserId;
 
 
     @Override
@@ -42,12 +44,15 @@ public class CreateFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create, container, false);
         offerButton = (Button) view.findViewById(R.id.offer);
         listView_main = (ListView)view.findViewById(R.id.listView_main);
+        myUserId = getActivity().getIntent().getStringExtra("user");
         cardListAdpters = new CardListAdpters(getActivity(), getItems());
         offerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),OfferCarActivity.class);
+                intent.putExtra("user", myUserId);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
         wantButton = (Button)view.findViewById(R.id.want);
@@ -55,6 +60,7 @@ public class CreateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),WantCarActivity.class);
+                intent.putExtra("user",myUserId);
                 startActivity(intent);
             }
         });
@@ -66,6 +72,7 @@ public class CreateFragment extends Fragment {
         List<ListCard> mCards=new ArrayList<ListCard>();
         try {
             result = new MainAsync(getActivity()).execute().get();
+            Log.i("guo",result);
         }
         catch (ExecutionException | InterruptedException ei) {
             ei.printStackTrace();
@@ -77,8 +84,8 @@ public class CreateFragment extends Fragment {
                 json_data = jArray.getJSONObject(i);
                 String name = json_data.getString("user_name");
                 String time = json_data.getString("time");
-                String dep = json_data.getString("depAdd");
-                String des = json_data.getString("desAdd");
+                String dep = json_data.getString("depName");
+                String des = json_data.getString("desName");
                 String seats = json_data.getString("available_seats");
                 ListCard mCard=new ListCard(name, time,dep,des,seats);
                 mCards.add(mCard);

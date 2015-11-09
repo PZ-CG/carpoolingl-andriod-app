@@ -38,6 +38,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         if (button == 1){
             Log.w("DatePicker", "Date = " + minute);
             ((TextView) getActivity().findViewById(R.id.publish_time)).setText(hourOfDay + ":" + minute);
+            OfferCarActivity.OFFER_TIME = hourOfDay + ":" + minute;
         } else if (button == 2){
             Log.w("DatePicker", "Date = " + minute);
             ((TextView) getActivity().findViewById(R.id.publish_time_want)).setText(hourOfDay + ":" + minute);
