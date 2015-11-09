@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.osu.pzcg.carpool.Info.ListCard;
@@ -19,6 +20,7 @@ public class CardListAdpters extends BaseAdapter{
 
         private List<ListCard> mCards;
         private Context mContext;
+
 
         public CardListAdpters(Context mContext,List<ListCard> mCards)
         {
@@ -58,7 +60,30 @@ public class CardListAdpters extends BaseAdapter{
             mHolder.destin.setText(mCards.get(index).getDestination());
             mHolder.cardSeats=(TextView)mView.findViewById(R.id.seat_left);
             mHolder.cardSeats.setText(mCards.get(index).getSeats());
+
+
+
+
+            Button b = (Button) mView.findViewById(R.id.join);
+            b.setTag(index);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //Toast.makeText(mContext, "THIS IS MY TOAST" + mCards.get((Integer)(v.getTag())).getDeparture(),
+                      //      Toast.LENGTH_SHORT).show();
+                    String name = mCards.get((Integer)(v.getTag())).getName();
+                    String time = mCards.get((Integer)(v.getTag())).getTime();
+                    String departure = mCards.get((Integer)(v.getTag())).getDeparture();
+                    String destination = mCards.get((Integer)(v.getTag())).getDestination();
+                    int seats = Integer.parseInt(mCards.get((Integer)(v.getTag())).getSeats());
+
+                    //Toast.makeText(mContext, name + time+ departure + destination + seats,Toast.LENGTH_SHORT).show();
+                }
+            });
             return mView;
+
+
         }
 
         private static class ViewHolder

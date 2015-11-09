@@ -51,6 +51,7 @@
             android:background="#512DA8"
             android:orientation="horizontal">
             <Button
+                android:id="@+id/join"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
