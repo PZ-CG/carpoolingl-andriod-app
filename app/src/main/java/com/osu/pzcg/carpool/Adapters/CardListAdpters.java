@@ -77,8 +77,9 @@ public class CardListAdpters extends BaseAdapter{
                     String departure = mCards.get((Integer)(v.getTag())).getDeparture();
                     String destination = mCards.get((Integer)(v.getTag())).getDestination();
                     int seats = Integer.parseInt(mCards.get((Integer)(v.getTag())).getSeats());
-
-                    //Toast.makeText(mContext, name + time+ departure + destination + seats,Toast.LENGTH_SHORT).show();
+                    
+                    Toast.makeText(mContext, "Join Carpool from " + departure + " to " + destination + " at " + time + " successful ", Toast.LENGTH_SHORT).show();
+                    
                 }
             });
             return mView;
