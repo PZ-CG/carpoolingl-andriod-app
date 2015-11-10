@@ -8,9 +8,10 @@
     <string name="register">Register</string>
     <string name = "place">Places</string>
     <string-array name="navigation_drawer_items_array">
-        <item>Create</item>
-        <item>Read</item>
-        <item>Help</item>
+        <item>Carpool</item>
+        <item>My history</item>
+        <item>Specials</item>
+        <item>Logout</item>
     </string-array>
     <string name = "drawer_open">Open navigation drawer</string>
     <string name = "drawer_close">Close navigation drawer</string>
@@ -21,14 +22,13 @@
         <item>4</item>
         <item>5</item>
         <item>6</item>
-        <item>7</item>
-        <item>8</item>
     </string-array>
     <string-array name="place">
         <item>home</item>
         <item>work</item>
     </string-array>
     <string name="title_activity_offer_car">OfferCarActivity</string>
+    <string name="title_activity_special">SpecialActivity</string>
 
 </resources>
 

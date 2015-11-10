@@ -17,7 +17,7 @@
             android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCeLhGlPa7LJNsFCiE1uP7Igp1Hjy3utM4"/>
+            android:value="AIzaSyCeLhGlPa7LJNsFCiE1uP7Igp1Hjy3utM4" />
 
         <activity
             android:name=".activity.LoginActivity"
@@ -51,6 +51,11 @@
         <activity android:name=".activity.WantCarActivity" >
         </activity>
         <activity android:name=".activity.OfferCarActivity" >
+        </activity>
+        <activity
+            android:name=".activity.SpecialActivity"
+            android:label="@string/title_activity_special"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

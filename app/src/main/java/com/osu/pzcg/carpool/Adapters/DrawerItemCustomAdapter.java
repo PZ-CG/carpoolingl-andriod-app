@@ -1,4 +1,8 @@
-package com.osu.pzcg.carpool.activity;
+package com.osu.pzcg.carpool.Adapters;
+
+/**
+ * Created by GoThumbers on 11/9/15.
+ */
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.osu.pzcg.carpool.R;
+import com.osu.pzcg.carpool.activity.ObjectDrawerItem;
+
 /**
  * Created by peihongzhong on 10/31/15.
  */

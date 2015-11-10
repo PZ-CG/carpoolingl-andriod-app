@@ -56,6 +56,7 @@ public class RegisterActivity extends Activity{
                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     intent.putExtra("user", un);
                     startActivity(intent);
+                    RegisterActivity.this.finish();
                 }else{
                     Toast.makeText(RegisterActivity.this, "Register failed!", Toast.LENGTH_LONG).show();
                 }

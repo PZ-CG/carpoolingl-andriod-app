@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                 intent.putExtra("user", loginResult.getAccessToken().getUserId());
                 startActivity(intent);
+                LoginActivity.this.finish();
 
             }
 
@@ -101,8 +102,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(RESULT.indexOf("successful")!=-1 ) {
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    intent.putExtra("user",un);
+                    intent.putExtra("user", un);
                     startActivity(intent);
+                    LoginActivity.this.finish();
                     editor = pref.edit();
                     editor.putString("un", un);
                     editor.putString("pw", pw);

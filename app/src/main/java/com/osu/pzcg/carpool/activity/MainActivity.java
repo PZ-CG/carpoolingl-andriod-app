@@ -2,6 +2,8 @@ package com.osu.pzcg.carpool.activity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.osu.pzcg.carpool.Adapters.DrawerItemCustomAdapter;
 import com.osu.pzcg.carpool.R;
 
 
@@ -45,11 +48,12 @@ public class MainActivity extends ActionBarActivity {
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         // list the drawer items
-        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[3];
+        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[4];
 
-        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_action_copy, "Create");
-        drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_action_refresh, "Read");
-        drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_action_share, "Help");
+        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_action_copy, "Carpool");
+        drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_action_refresh, "My history");
+        drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_action_share, "Specials");
+        drawerItem[3] = new ObjectDrawerItem(R.drawable.ic_action_logout, "Logout");
 
         // Pass the folderData to our ListView adapter
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.listview_item_row, drawerItem);
@@ -86,7 +90,6 @@ public class MainActivity extends ActionBarActivity {
                 getSupportActionBar().setTitle(mDrawerTitle);
             }
         };
-
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
@@ -102,14 +105,6 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
 
 
     @Override
@@ -159,7 +154,11 @@ public class MainActivity extends ActionBarActivity {
             case 2:
                 fragment = new HelpFragment();
                 break;
-
+            case 3:
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+                MainActivity.this.finish();
+                break;
             default:
                 break;
         }
@@ -180,6 +179,12 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -175,7 +176,7 @@ public class OfferCarActivity extends AppCompatActivity implements ConnectionCal
             public void onClick(View v) {
                 try {
                     if (myUserId != null && OFFER_DATE != null && OFFER_TIME != null && place1_id != null && place2_id != null && seatsSum != null) {
-                        String result = new OfferCarAsync(OfferCarActivity.this).execute(myUserId, OFFER_DATE + "-" + OFFER_TIME, place1_id, place2_id, seatsSum,
+                        String result = new OfferCarAsync(OfferCarActivity.this).execute(myUserId, OFFER_DATE + " " + OFFER_TIME, place1_id, place2_id, seatsSum,
                                 seatsSum,place1_lng+"",place1_lat+"",place1_name+"",place2_lng+"",place2_lat+"",place2_name+"").get();
                         Log.i("guo",result);
 
@@ -185,6 +186,7 @@ public class OfferCarActivity extends AppCompatActivity implements ConnectionCal
                 }catch (ExecutionException | InterruptedException ei) {
                     ei.printStackTrace();
                 }
+
                 Intent intent = new Intent(OfferCarActivity.this, MainActivity.class);
                 intent.putExtra("user",myUserId);
                 startActivity(intent);
@@ -287,6 +289,21 @@ public class OfferCarActivity extends AppCompatActivity implements ConnectionCal
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            Intent intent = new Intent(OfferCarActivity.this, MainActivity.class);
+            intent.putExtra("user",myUserId);
+            startActivity(intent);
+            OfferCarActivity.this.finish();
+
+        }
+
+        return false;
 
     }
 }

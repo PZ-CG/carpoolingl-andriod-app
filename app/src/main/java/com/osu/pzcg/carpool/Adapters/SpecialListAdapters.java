@@ -1,33 +1,34 @@
-package com.osu.pzcg.carpool.Adapters;
 
-import android.content.Context;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+    package com.osu.pzcg.carpool.Adapters;
 
-import com.osu.pzcg.carpool.Info.ListCard;
-import com.osu.pzcg.carpool.R;
-import com.osu.pzcg.carpool.async.JoinAsync;
+    import android.content.Context;
+    import android.util.Log;
+    import android.view.LayoutInflater;
+    import android.view.View;
+    import android.view.ViewGroup;
+    import android.widget.BaseAdapter;
+    import android.widget.Button;
+    import android.widget.TextView;
+    import android.widget.Toast;
 
-import java.util.List;
-import java.util.concurrent.ExecutionException;
+    import com.osu.pzcg.carpool.Info.ListCard;
+    import com.osu.pzcg.carpool.R;
+    import com.osu.pzcg.carpool.async.JoinAsync;
 
-/**
- * Created by GoThumbers on 11/6/15.
- */
-public class CardListAdpters extends BaseAdapter{
+    import java.util.List;
+    import java.util.concurrent.ExecutionException;
+
+    /**
+     * Created by GoThumbers on 11/6/15.
+     */
+    public class SpecialListAdapters extends BaseAdapter {
 
         private List<ListCard> mCards;
         private Context mContext;
         private String current_user;
 
 
-        public CardListAdpters(Context mContext,List<ListCard> mCards,String current_user)
+        public SpecialListAdapters(Context mContext,List<ListCard> mCards,String current_user)
         {
             this.mContext=mContext;
             this.mCards=mCards;
@@ -55,29 +56,29 @@ public class CardListAdpters extends BaseAdapter{
         public View getView(int index, View mView, ViewGroup mParent)
         {
             ViewHolder mHolder=new ViewHolder();
-            mView= LayoutInflater.from(mContext).inflate(R.layout.list_card, null);
-            mHolder.cardTitle=(TextView)mView.findViewById(R.id.name);
+            mView= LayoutInflater.from(mContext).inflate(R.layout.special_card, null);
+            mHolder.cardTitle=(TextView)mView.findViewById(R.id.publisher);
             mHolder.cardTitle.setText(mCards.get(index).getName());
-            mHolder.cardTime=(TextView)mView.findViewById(R.id.time);
+            mHolder.cardTime=(TextView)mView.findViewById(R.id.time_special);
             mHolder.cardTime.setText(mCards.get(index).getTime());
-            mHolder.depart=(TextView)mView.findViewById(R.id.departure);
+            mHolder.depart=(TextView)mView.findViewById(R.id.event_name);
             mHolder.depart.setText(mCards.get(index).getDeparture());
-            mHolder.destin=(TextView)mView.findViewById(R.id.destination);
+            mHolder.destin=(TextView)mView.findViewById(R.id.destination_special);
             mHolder.destin.setText(mCards.get(index).getDestination());
-            mHolder.cardSeats=(TextView)mView.findViewById(R.id.seat_left);
+            mHolder.cardSeats=(TextView)mView.findViewById(R.id.seat_left_special);
             mHolder.cardSeats.setText(mCards.get(index).getSeats());
 
 
 
 
-            Button b = (Button) mView.findViewById(R.id.join);
+            Button b = (Button) mView.findViewById(R.id.join_special);
             b.setTag(index);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     //Toast.makeText(mContext, "THIS IS MY TOAST" + mCards.get((Integer)(v.getTag())).getDeparture(),
-                      //      Toast.LENGTH_SHORT).show();
+                    //      Toast.LENGTH_SHORT).show();
                     String name = mCards.get((Integer)(v.getTag())).getName();
                     String time = mCards.get((Integer)(v.getTag())).getTime();
                     String departure = mCards.get((Integer)(v.getTag())).getDeparture();
@@ -119,4 +120,6 @@ public class CardListAdpters extends BaseAdapter{
 
 
 
-}
+    }
+
+

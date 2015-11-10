@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:padding="10dp">
-<LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:gravity="center_vertical"
-    android:background="@drawable/card_shape">
+    android:padding="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/card_shape">
         <!-- departure -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,19 +20,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Departure     "
+                android:text="Event name     "
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"/>
-            <ImageButton
-                android:id="@+id/publish_favorite_places"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/favorite_place"/>
-            <ImageButton
-                android:id="@+id/publish_current_location"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/locate"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -45,12 +36,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"/>
-            <Button
-                android:id="@+id/choose_dep"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="Map"
-                android:layout_weight="1"/>
         </LinearLayout>
 
         <!-- destination -->
@@ -63,7 +48,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Destination  "
+                android:text="Departure   "
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"/>
             <ImageButton
@@ -99,12 +84,12 @@
             android:layout_gravity="center_horizontal"
             android:paddingTop="20dp">
             <Button
-                android:id="@+id/publish_date"
+                android:id="@+id/publish_date_special"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="showDatePickerDialog"/>
             <Button
-                android:id="@+id/publish_time"
+                android:id="@+id/publish_time_special"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -136,6 +121,6 @@
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
-            android:text="Create a carpool!"/>
-</LinearLayout>
+            android:text="Publish event!"/>
+    </LinearLayout>
 </LinearLayout>

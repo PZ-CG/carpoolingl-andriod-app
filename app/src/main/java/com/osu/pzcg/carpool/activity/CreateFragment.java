@@ -36,6 +36,7 @@ public class CreateFragment extends Fragment {
     public String result;
     public JSONArray jArray;
     public String myUserId;
+    public static MainActivity instance = null;
 
 
     @Override
@@ -45,7 +46,7 @@ public class CreateFragment extends Fragment {
         offerButton = (Button) view.findViewById(R.id.offer);
         listView_main = (ListView)view.findViewById(R.id.listView_main);
         myUserId = getActivity().getIntent().getStringExtra("user");
-        cardListAdpters = new CardListAdpters(getActivity(), getItems());
+        cardListAdpters = new CardListAdpters(getActivity(), getItems(),myUserId);
         offerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
