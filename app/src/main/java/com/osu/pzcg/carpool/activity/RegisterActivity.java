@@ -18,13 +18,12 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by GoThumbers on 10/9/15.
  */
-public class RegisterActivity extends Activity{
+public class RegisterActivity extends Activity {
     EditText username;
     EditText password;
     Button register;
     public static String RESULT;
-    String un,pw;
-
+    String un, pw;
 
 
     @Override
@@ -46,18 +45,17 @@ public class RegisterActivity extends Activity{
                     un = username.getText().toString();
                     pw = password.getText().toString();
                     RESULT = new RegisterAsync(RegisterActivity.this).execute(un, pw).get();
-                    }
-                catch (ExecutionException | InterruptedException ei) {
+                } catch (ExecutionException | InterruptedException ei) {
                     ei.printStackTrace();
                 }
 
                 System.out.println(RESULT);
-                if(RESULT.indexOf("successful")!=-1 ) {
+                if (RESULT.indexOf("successful") != -1) {
                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     intent.putExtra("user", un);
                     startActivity(intent);
                     RegisterActivity.this.finish();
-                }else{
+                } else {
                     Toast.makeText(RegisterActivity.this, "Register failed!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -67,7 +65,7 @@ public class RegisterActivity extends Activity{
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("LifeCycle","onResume()");
+        Log.i("LifeCycle", "onResume()");
     }
 
     @Override
@@ -99,27 +97,4 @@ public class RegisterActivity extends Activity{
         super.onRestart();
         Log.i("LifeCycle", "onRestart()");
     }
-//    Handler handler = new Handler(){
-//
-//        @Override
-//        public void handleMessage(android.os.Message msg) {
-//            switch (msg.what) {
-//                case 1:
-//                    String result = (String)msg.obj;
-//                    System.out.println("hhhhhhhhhhhhhhhhh"+result);
-//                    if(result.indexOf("successful")!=-1 ) {
-//                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-//                        intent.putExtra("user", un);
-//                        startActivity(intent);
-//                    }else{
-//                        Toast.makeText(RegisterActivity.this, "Register failed!", Toast.LENGTH_LONG).show();
-//                    }
-//                    break;
-//
-//                default:
-//                    break;
-//            }
-//        }
-//
-//    };
 }

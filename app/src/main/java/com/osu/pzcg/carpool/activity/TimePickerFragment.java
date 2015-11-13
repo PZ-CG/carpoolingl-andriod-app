@@ -5,7 +5,6 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -36,12 +35,15 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         // Do something with the time chosen by the user
         if (button == 1){
-            Log.w("DatePicker", "Date = " + minute);
+            //Log.w("DatePicker", "Date = " + minute);
             ((TextView) getActivity().findViewById(R.id.publish_time)).setText(hourOfDay + ":" + minute);
             OfferCarActivity.OFFER_TIME = hourOfDay + ":" + minute;
         } else if (button == 2){
-            Log.w("DatePicker", "Date = " + minute);
+            //Log.w("DatePicker", "Date = " + minute);
             ((TextView) getActivity().findViewById(R.id.publish_time_want)).setText(hourOfDay + ":" + minute);
+        } else if (button == 3){
+            ((TextView) getActivity().findViewById(R.id.publish_time_special)).setText(hourOfDay + ":" + minute);
+            SpecialActivity.OFFER_TIME_EVENT = hourOfDay + ":" + minute;
         }
     }
 }

@@ -8,10 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="20dp"
+        android:padding="10dp"
         android:gravity="center_vertical"
         android:background="@drawable/card_shape">
-        <!-- departure -->
+        <Spinner
+            android:id="@+id/events"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"/>
+        <!-- event -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +58,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"/>
             <ImageButton
-                android:id="@+id/publish_favorite_places2"
+                android:id="@+id/publish_favorite_places_event"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@drawable/favorite_place"/>
@@ -68,7 +74,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="4"/>
             <Button
-                android:id="@+id/choose_des"
+                android:id="@+id/choose_des_event"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -86,8 +92,7 @@
             <Button
                 android:id="@+id/publish_date_special"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="showDatePickerDialog"/>
+                android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/publish_time_special"
                 android:layout_width="wrap_content"
@@ -116,7 +121,7 @@
                 android:gravity="center_vertical"/>
         </LinearLayout>
         <Button
-            android:id="@+id/publish"
+            android:id="@+id/publish_event"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"

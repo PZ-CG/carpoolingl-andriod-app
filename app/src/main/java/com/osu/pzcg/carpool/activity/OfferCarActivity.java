@@ -291,7 +291,6 @@ public class OfferCarActivity extends AppCompatActivity implements ConnectionCal
         mGoogleApiClient.connect();
 
     }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK )
@@ -306,4 +305,6 @@ public class OfferCarActivity extends AppCompatActivity implements ConnectionCal
         return false;
 
     }
+
+
 }

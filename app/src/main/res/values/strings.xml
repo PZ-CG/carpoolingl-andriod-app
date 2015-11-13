@@ -29,6 +29,14 @@
     </string-array>
     <string name="title_activity_offer_car">OfferCarActivity</string>
     <string name="title_activity_special">SpecialActivity</string>
+    <string-array name="special_event">
+        <item>Concert</item>
+        <item>Football</item>
+        <item>Basketball</item>
+        <item>Party</item>
+        <item>Art</item>
+        <item>Others</item>
+    </string-array>
 
 </resources>
 

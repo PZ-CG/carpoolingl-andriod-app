@@ -34,6 +34,7 @@ public class MainActivity extends ActionBarActivity {
     // used to store app title
     private CharSequence mTitle;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +102,7 @@ public class MainActivity extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             // on first time display view for first nav item
-            selectItem(0);
+                selectItem(0);
         }
     }
 
@@ -155,8 +156,8 @@ public class MainActivity extends ActionBarActivity {
                 fragment = new HelpFragment();
                 break;
             case 3:
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent2);
                 MainActivity.this.finish();
                 break;
             default:

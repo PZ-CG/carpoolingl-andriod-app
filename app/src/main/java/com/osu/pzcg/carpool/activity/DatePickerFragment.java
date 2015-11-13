@@ -42,6 +42,9 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         } else if (button == 2){
             Log.w("DatePicker", "Date = " + year);
             ((Button) getActivity().findViewById(R.id.publish_date_want)).setText(month + 1 + "-" + day + "-" + year);
+        } else if(button == 3){
+            ((Button) getActivity().findViewById(R.id.publish_date_special)).setText(month + 1 + "-" + day + "-" + year);
+            SpecialActivity.OFFER_DATE_EVENT = month + 1 + "-" + day + "-" + year;
         }
     }
 }

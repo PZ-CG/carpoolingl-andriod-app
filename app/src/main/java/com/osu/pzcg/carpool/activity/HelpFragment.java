@@ -16,6 +16,8 @@ import com.osu.pzcg.carpool.R;
 import com.osu.pzcg.carpool.async.MainAsync;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +29,12 @@ import java.util.concurrent.ExecutionException;
  */
 public class HelpFragment extends Fragment {
     public Button createButton;
-    public Button wantButton;
+    public Button join;
 
     public ListView listView_main;
     public SpecialListAdapters SpecialListAdapters;
     public String result;
-    public JSONArray jArray;
+    public JSONArray jArray_event;
     public String myUserId;
     public static MainActivity instance = null;
 
@@ -43,6 +45,8 @@ public class HelpFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_help, container, false);
         createButton = (Button) view.findViewById(R.id.create_event);
         listView_main = (ListView)view.findViewById(R.id.listView_special);
+        join = (Button) view.findViewById(R.id.join);
+
         myUserId = getActivity().getIntent().getStringExtra("user");
         SpecialListAdapters = new SpecialListAdapters(getActivity(), getItems(),myUserId);
         createButton.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +55,7 @@ public class HelpFragment extends Fragment {
                 Intent intent = new Intent(getActivity(),SpecialActivity.class);
                 intent.putExtra("user", myUserId);
                 startActivity(intent);
-                getActivity().finish();
+                //getActivity().finish();
             }
         });
 
@@ -68,21 +72,25 @@ public class HelpFragment extends Fragment {
         catch (ExecutionException | InterruptedException ei) {
             ei.printStackTrace();
         }
-//        try{
-//            jArray = new JSONArray(result);
-//            JSONObject json_data=null;
-//            for(int i=0;i<jArray.length();i++){
-//                json_data = jArray.getJSONObject(i);
-//                String name = json_data.getString("user_name");
-//                String time = json_data.getString("time");
-//                String dep = json_data.getString("depName");
-//                String des = json_data.getString("desName");
-//                String seats = json_data.getString("available_seats");
-//                ListCard mCard=new ListCard(name, time,dep,des,seats);
-//                mCards.add(mCard);
-//            }
-//        }catch(JSONException e1){
-//        }
+        try{
+            jArray_event = new JSONArray(result);
+            JSONObject json_data=null;
+            for(int i=0;i<jArray_event.length();i++){
+                json_data = jArray_event.getJSONObject(i);
+                String name = json_data.getString("user_name");
+                String time = json_data.getString("time");
+                String dep = json_data.getString("depName");
+                String des = json_data.getString("desName");
+                String seats = json_data.getString("available_seats");
+                ListCard mCard=new ListCard(name, time,dep,des,seats);
+                mCards.add(mCard);
+            }
+        }catch(JSONException e1){
+        }
+
+
+
+        
         ListCard mCard=new ListCard("Peihong", "11-11-2015 12:30","Taylor Swift World Tour","Ohio Union","25");
                 mCards.add(mCard);
         ListCard mCard2=new ListCard("Chaoqun", "11-12-2015 10:00","3V3 Basketball Game","RPAC","20");
