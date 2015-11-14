@@ -13,7 +13,7 @@ import android.widget.ListView;
 import com.osu.pzcg.carpool.Adapters.SpecialListAdapters;
 import com.osu.pzcg.carpool.Info.ListCard;
 import com.osu.pzcg.carpool.R;
-import com.osu.pzcg.carpool.async.MainAsync;
+import com.osu.pzcg.carpool.async.MainEventAsync;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,12 +62,13 @@ public class HelpFragment extends Fragment {
         listView_main.setAdapter(SpecialListAdapters);
         return view;
     }
+
     public List<ListCard> getItems()
     {
         List<ListCard> mCards=new ArrayList<ListCard>();
         try {
-            result = new MainAsync(getActivity()).execute().get();
-            Log.i("guo",result);
+            result = new MainEventAsync(getActivity()).execute().get();
+            Log.i("z",result);
         }
         catch (ExecutionException | InterruptedException ei) {
             ei.printStackTrace();
@@ -79,22 +80,16 @@ public class HelpFragment extends Fragment {
                 json_data = jArray_event.getJSONObject(i);
                 String name = json_data.getString("user_name");
                 String time = json_data.getString("time");
-                String dep = json_data.getString("depName");
-                String des = json_data.getString("desName");
+                String event_name = json_data.getString("event_name");
+                String departure = json_data.getString("depName");
                 String seats = json_data.getString("available_seats");
-                ListCard mCard=new ListCard(name, time,dep,des,seats);
+                ListCard mCard=new ListCard(name,time,event_name,departure,seats);
+
                 mCards.add(mCard);
             }
         }catch(JSONException e1){
         }
 
-
-
-        
-        ListCard mCard=new ListCard("Peihong", "11-11-2015 12:30","Taylor Swift World Tour","Ohio Union","25");
-                mCards.add(mCard);
-        ListCard mCard2=new ListCard("Chaoqun", "11-12-2015 10:00","3V3 Basketball Game","RPAC","20");
-                mCards.add(mCard2);
         return mCards;
 
     }

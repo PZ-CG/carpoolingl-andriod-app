@@ -84,7 +84,10 @@ public class CardListAdpters extends BaseAdapter{
                     String destination = mCards.get((Integer)(v.getTag())).getDestination();
                     int seats = Integer.parseInt(mCards.get((Integer)(v.getTag())).getSeats());
                     try {
-                        if (name != null && time != null && departure != null && destination != null && seats != 0 && current_user != null) {
+                        if (name == current_user){
+                            Toast.makeText(mContext,"YOU CAN'T JOIN THE CARPOOL YOU INITIATE!",Toast.LENGTH_SHORT).show();
+                        }
+                        else if (name != null && time != null && departure != null && destination != null && seats != 0 && current_user != null) {
                             String result = new JoinAsync(mContext).execute(name, time , departure, destination, (seats-1)+"",current_user).get();
                             Log.i("guo", result);
                             if (result!=null){

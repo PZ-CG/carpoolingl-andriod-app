@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -178,7 +177,7 @@ public class OfferCarActivity extends AppCompatActivity implements ConnectionCal
                     if (myUserId != null && OFFER_DATE != null && OFFER_TIME != null && place1_id != null && place2_id != null && seatsSum != null) {
                         String result = new OfferCarAsync(OfferCarActivity.this).execute(myUserId, OFFER_DATE + " " + OFFER_TIME, place1_id, place2_id, seatsSum,
                                 seatsSum,place1_lng+"",place1_lat+"",place1_name+"",place2_lng+"",place2_lat+"",place2_name+"").get();
-                        Log.i("guo",result);
+                        //Log.i("guo",result);
 
                         } else {
                         Toast.makeText(OfferCarActivity.this, "Please fill are the fields", Toast.LENGTH_LONG).show();
@@ -228,7 +227,7 @@ public class OfferCarActivity extends AppCompatActivity implements ConnectionCal
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 seatsSum = ""+(position+1);
-                Log.i("guo",seatsSum);
+                //Log.i("guo",seatsSum);
             }
 
             @Override

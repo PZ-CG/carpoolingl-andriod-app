@@ -26,7 +26,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.osu.pzcg.carpool.R;
-import com.osu.pzcg.carpool.async.OfferCarAsync;
+import com.osu.pzcg.carpool.async.EventCarAsync;
 
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
@@ -37,9 +37,12 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
     private Button choose_des;
     private Button publish_event;
     private ImageButton common_dep;
+    private EditText eventname;
     private Spinner event;
     private AlertDialog.Builder builder;
     private String str;
+    private String category;
+    private String event_name;
     private EditText show_des;
     private int PLACE_PICKER_REQUEST;
     private String place_id;
@@ -71,6 +74,7 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
         event = (Spinner) findViewById(R.id.events);
         choose_des = (Button) findViewById(R.id.choose_des_event);
         myUserId = getIntent().getStringExtra("user");
+        Log.i("zhong", myUserId);
 
         publish_event = (Button)findViewById(R.id.publish_event);
 
@@ -117,6 +121,7 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
 
                         str = getResources().getStringArray(R.array.place)[which];
 
+
                     }
                 });
                 builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -130,7 +135,7 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
                 builder.create().show();
             }
         });
-
+        category  = str;
 //        // map button
         choose_des.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,13 +179,19 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
         publish_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                eventname  = (EditText)findViewById(R.id.event_name);
+                event_name = eventname.getText().toString();
                 try {
-                    if (myUserId != null && OFFER_DATE_EVENT != null && OFFER_TIME_EVENT != null && place_id != null && place_id != null && seatsSum != null) {
-                        String result = new OfferCarAsync(SpecialActivity.this).execute(myUserId, OFFER_DATE_EVENT + " " + OFFER_TIME_EVENT, place_id, seatsSum,
-                                seatsSum,place_lng+"",place_lat+"",place_name+"").get();
-                        Log.i("guo", result);
+
+                    if (myUserId != null && OFFER_DATE_EVENT != null && OFFER_TIME_EVENT != null && place_id != null && seatsSum != null && event_name != null && category != null) {
+                        String result = new EventCarAsync(SpecialActivity.this).execute(myUserId, OFFER_DATE_EVENT + " " + OFFER_TIME_EVENT, place_id, seatsSum,
+                                seatsSum,place_lng+"",place_lat+"",place_name+"", event_name+"",category+"").get();
+                        Toast.makeText(SpecialActivity.this, "Publish successful!", Toast.LENGTH_LONG).show();
+                        //getFragmentManager().popBackStack();
 
                     } else {
+
+
                         Toast.makeText(SpecialActivity.this, "Please fill are the fields", Toast.LENGTH_LONG).show();
                     }
                 }catch (ExecutionException | InterruptedException ei) {
@@ -242,10 +253,7 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK )
         {
-            //Intent intent = new Intent(this, MainActivity.class);
-            //intent.putExtra("user",myUserId);
-            //startActivity(intent);
-            //getFragmentManager().popBackStack();
+
             SpecialActivity.this.finish();
 
         }
