@@ -40,11 +40,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
-            <EditText
-                android:id="@+id/place_want"
+            <AutoCompleteTextView
+                android:id="@+id/dep_want"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="4"
+                android:hint="Enter Place Here!" />
 
             <Button
                 android:id="@+id/choose_dep_want"
@@ -79,11 +81,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
-            <EditText
-                android:id="@+id/place2_want"
+            <AutoCompleteTextView
+                android:id="@+id/des_want"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="4"
-                android:layout_height="match_parent"/>
+                android:hint="Enter Place Here!" />
             <Button
                 android:id="@+id/choose_des_want"
                 android:layout_width="0dp"

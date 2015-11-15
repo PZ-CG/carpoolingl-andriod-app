@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,9 +23,15 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.osu.pzcg.carpool.Adapters.PlaceArrayAdapter;
 import com.osu.pzcg.carpool.R;
 import com.osu.pzcg.carpool.async.EventCarAsync;
 
@@ -43,9 +50,10 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
     private String str;
     private String category;
     private String event_name;
-    private EditText show_des;
+    private AutoCompleteTextView show_des;
     private int PLACE_PICKER_REQUEST;
     private String place_id;
+    private String placeId;
     public String myUserId;
     public Double place_lat;
     public Double place_lng;
@@ -55,7 +63,9 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
     public static String OFFER_DATE_EVENT = null;
     public static String OFFER_TIME_EVENT = null;
     private String seatsSum;
-
+    private PlaceArrayAdapter mAdapter;
+    private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
+            new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +80,7 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
 
         common_dep = (ImageButton) findViewById(R.id.publish_favorite_places_event);
         builder = new AlertDialog.Builder(this);
-        show_des = (EditText) findViewById(R.id.place2);
+        show_des = (AutoCompleteTextView) findViewById(R.id.show_des);
         event = (Spinner) findViewById(R.id.events);
         choose_des = (Button) findViewById(R.id.choose_des_event);
         myUserId = getIntent().getStringExtra("user");
@@ -86,6 +96,21 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+
+        //auto complete place
+
+        show_des.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PlaceArrayAdapter.PlaceAutocomplete item = mAdapter.getItem(position);
+                placeId =  String.valueOf(item.placeId);
+                PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeId);
+                placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+            }
+        });
+        mAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
+                mGoogleApiClient, BOUNDS_MOUNTAIN_VIEW , null);
+        show_des.setAdapter(mAdapter);
 
         // spinner
 
@@ -205,7 +230,28 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
             }
         });
     }
+    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback
+            = new ResultCallback<PlaceBuffer>() {
+        @Override
+        public void onResult(PlaceBuffer places) {
+            if (!places.getStatus().isSuccess()) {
+                // Request did not complete successfully
+                //Log.e(TAG, "Place query did not complete. Error: " + places.getStatus().toString());
+                places.release();
+                return;
+            }
+            // Get the Place object from the buffer.
+            final Place place = places.get(0);
 
+            // Format details of the place for display and show it in a TextView.
+                place_name = place.getName();
+                place_id = place.getId();
+                place_lat = place.getLatLng().latitude;
+                place_lng = place.getLatLng().longitude;
+                // Log.i(TAG, "Place details received: " + place.getName());
+            places.release();
+        }
+    };
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
