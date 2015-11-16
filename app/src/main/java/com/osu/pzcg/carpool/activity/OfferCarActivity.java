@@ -237,7 +237,7 @@ public class OfferCarActivity extends AppCompatActivity implements ConnectionCal
                         String result = new OfferCarAsync(OfferCarActivity.this).execute(myUserId, OFFER_DATE + " " + OFFER_TIME, place1_id, place2_id, seatsSum,
                                 seatsSum, place1_lng + "", place1_lat + "", place1_name + "", place2_lng + "", place2_lat + "", place2_name + "").get();
                         //Log.i("guo",result);
-
+                        Toast.makeText(OfferCarActivity.this, "Publish successful!", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(OfferCarActivity.this, "Please fill are the fields", Toast.LENGTH_LONG).show();
                     }

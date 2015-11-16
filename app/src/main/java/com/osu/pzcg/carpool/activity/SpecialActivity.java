@@ -81,6 +81,7 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
         common_dep = (ImageButton) findViewById(R.id.publish_favorite_places_event);
         builder = new AlertDialog.Builder(this);
         show_des = (AutoCompleteTextView) findViewById(R.id.show_des);
+
         event = (Spinner) findViewById(R.id.events);
         choose_des = (Button) findViewById(R.id.choose_des_event);
         myUserId = getIntent().getStringExtra("user");
@@ -119,6 +120,7 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
                 seatsSum = ""+(position+1);
+                category = item;
             }
 
             @Override
@@ -160,7 +162,6 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
                 builder.create().show();
             }
         });
-        category  = str;
 //        // map button
         choose_des.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,7 +216,6 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
                         //getFragmentManager().popBackStack();
 
                     } else {
-
 
                         Toast.makeText(SpecialActivity.this, "Please fill are the fields", Toast.LENGTH_LONG).show();
                     }

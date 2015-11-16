@@ -34,8 +34,8 @@ public class OfferCarAsync extends AsyncTask<String, Void, String> {
             String place1_lng = params[6];
             String place1_lat = params[7];
             String place1_name = params[8];
-            String place2_lat = params[9];
-            String place2_lng = params[10];
+            String place2_lng = params[9];
+            String place2_lat = params[10];
             String place2_name = params[11];
 
 

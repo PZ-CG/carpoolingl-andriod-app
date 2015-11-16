@@ -49,12 +49,14 @@ public class MainActivity extends ActionBarActivity {
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         // list the drawer items
-        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[4];
+        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[5];
 
         drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_action_copy, "Carpool");
         drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_action_refresh, "My history");
         drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_action_share, "Specials");
-        drawerItem[3] = new ObjectDrawerItem(R.drawable.ic_action_logout, "Logout");
+        drawerItem[3] = new ObjectDrawerItem(R.drawable.ic_action_setting,"Setting");
+        drawerItem[4] = new ObjectDrawerItem(R.drawable.ic_action_logout, "Logout");
+
 
         // Pass the folderData to our ListView adapter
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.listview_item_row, drawerItem);
@@ -156,10 +158,14 @@ public class MainActivity extends ActionBarActivity {
                 fragment = new HelpFragment();
                 break;
             case 3:
+                fragment = new SettingFragment();
+                break;
+            case 4:
                 Intent intent2 = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent2);
                 MainActivity.this.finish();
                 break;
+
             default:
                 break;
         }
