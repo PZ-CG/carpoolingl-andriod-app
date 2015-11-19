@@ -36,7 +36,13 @@ public class SettingAsync extends AsyncTask<String, Void, String> {
             String place2_lng = params[6];
             String place2_lat = params[7];
             String place2_name = params[8];
-
+//
+//            if(place2_id == null){
+//                place2_id = "";
+//                place2_lng = "";
+//                place2_lat = "";
+//                place1_name = "";
+//            }
             String link = "http://pzcg.biz/user_setting.php?user="+ URLEncoder.encode(username)+ "&home="+URLEncoder.encode(place1_id)
                     +"&work="+URLEncoder.encode(place2_id)+ "&longitude1=" +URLEncoder.encode(place1_lng)+"&lattitude1="
                     +URLEncoder.encode(place1_lat)+ "&home_name="+ URLEncoder.encode(place1_name)+"&longitude2="+URLEncoder.encode(place2_lng)

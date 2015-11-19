@@ -2,6 +2,7 @@ package com.osu.pzcg.carpool.activity;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.osu.pzcg.carpool.Adapters.PlaceArrayAdapter;
 import com.osu.pzcg.carpool.R;
+import com.osu.pzcg.carpool.async.GetSettingInfoAsync;
 import com.osu.pzcg.carpool.async.SettingAsync;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
@@ -34,6 +40,8 @@ public class SettingFragment extends Fragment implements GoogleApiClient.Connect
     private String place1_id;
     private String place2_id;
     private String myUserId;
+    public String home_address;
+    public String work_address;
     public Double place1_lat;
     public Double place1_lng;
     public Double place2_lat;
@@ -42,6 +50,7 @@ public class SettingFragment extends Fragment implements GoogleApiClient.Connect
     public CharSequence place2_name;
     private String home_work;
     private String placeId;
+    public JSONArray jArray_setting_infor;
     private AutoCompleteTextView home;
     private AutoCompleteTextView work;
     private PlaceArrayAdapter adapter_home;
@@ -66,6 +75,22 @@ public class SettingFragment extends Fragment implements GoogleApiClient.Connect
         adapter_home = new PlaceArrayAdapter(getActivity(), android.R.layout.simple_list_item_1,
                 mGoogleApiClient, BOUNDS_MOUNTAIN_VIEW , null);
         home.setAdapter(adapter_home);
+
+        try {
+            String result = new GetSettingInfoAsync(getActivity()).execute(myUserId).get();
+            getItems(result);
+        }catch (ExecutionException | InterruptedException ei) {
+            ei.printStackTrace();
+        }
+
+        if(home_address != null){
+            home.setText(home_address);
+        }
+        if(work_address != null){
+            work.setText(work_address);
+        }
+
+
         home.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -168,4 +193,22 @@ public class SettingFragment extends Fragment implements GoogleApiClient.Connect
         mGoogleApiClient.connect();
 
     }
+    public void getItems(String result)
+
+    {
+        try{
+            jArray_setting_infor = new JSONArray(result);
+            JSONObject json_data=null;
+            for(int i=0;i<jArray_setting_infor.length();i++){
+                json_data = jArray_setting_infor.getJSONObject(i);
+                home_address = json_data.getString("home_address");
+                work_address = json_data.getString("work_address");
+
+                Log.i("i love paris", home_address + " " + work_address+ " ");
+            }
+        }catch(JSONException e1){
+        }
+
+    }
+
 }
