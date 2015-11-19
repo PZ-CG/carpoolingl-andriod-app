@@ -1,13 +1,13 @@
 package com.osu.pzcg.carpool.activity;
 
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -46,6 +46,7 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
     private ImageButton common_dep;
     private EditText eventname;
     private Spinner event;
+    private Spinner seats;
     private AlertDialog.Builder builder;
     private String str;
     private String category;
@@ -83,6 +84,8 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
         show_des = (AutoCompleteTextView) findViewById(R.id.show_des);
 
         event = (Spinner) findViewById(R.id.events);
+        seats = (Spinner) findViewById(R.id.available_seats);
+
         choose_des = (Button) findViewById(R.id.choose_des_event);
         myUserId = getIntent().getStringExtra("user");
         Log.i("zhong", myUserId);
@@ -119,7 +122,6 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
-                seatsSum = ""+(position+1);
                 category = item;
             }
 
@@ -129,6 +131,17 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
             }
         });
 
+        seats.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                seatsSum = ""+(position+1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.special_event, android.R.layout.simple_spinner_item);
@@ -213,7 +226,15 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
                         String result = new EventCarAsync(SpecialActivity.this).execute(myUserId, OFFER_DATE_EVENT + " " + OFFER_TIME_EVENT, place_id, seatsSum,
                                 seatsSum,place_lng+"",place_lat+"",place_name+"", event_name+"",category+"").get();
                         Toast.makeText(SpecialActivity.this, "Publish successful!", Toast.LENGTH_LONG).show();
-                        //getFragmentManager().popBackStack();
+
+                        FragmentManager fm = getFragmentManager();
+                        if (fm.getBackStackEntryCount() > 0) {
+                            Log.i("MainActivity", "popping backstack");
+                            fm.popBackStack();
+                        } else {
+                            Log.i("MainActivity", "nothing on backstack, calling super");
+                            onBackPressed();
+                        }
 
                     } else {
 
@@ -223,10 +244,6 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
                     ei.printStackTrace();
                 }
 
-                Intent intent = new Intent(SpecialActivity.this, MainActivity.class);
-                intent.putExtra("user",myUserId);
-                startActivity(intent);
-                SpecialActivity.this.finish();
             }
         });
     }
@@ -296,18 +313,8 @@ public class SpecialActivity extends AppCompatActivity implements GoogleApiClien
 
     }
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK )
-        {
-
-            SpecialActivity.this.finish();
-
-        }
-
-        return false;
-
+    public void onBackPressed() {
+        SpecialActivity.this.finish();
     }
-
-
 
 }
