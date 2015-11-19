@@ -13,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -32,8 +34,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.osu.pzcg.carpool.Adapters.PlaceArrayAdapter;
 import com.osu.pzcg.carpool.R;
+import com.osu.pzcg.carpool.async.WantCarAsync;
 
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
+
 /**
  * Created by peihongzhong on 11/6/15.
  */
@@ -66,7 +71,13 @@ public class WantCarActivity extends AppCompatActivity implements ConnectionCall
     public CharSequence place2_add;
     public CharSequence place1_name;
     public CharSequence place2_name;
+    public static String WANT_DATE = null;
+    public static String WANT_TIME = null;
     private Button request;
+    private RadioGroup radio_group;
+    private RadioButton sort_by_time;
+    private RadioButton sort_by_distance;
+    public static int SORT_FUNC = 0;
     private PlaceArrayAdapter mAdapter_dep;
     private PlaceArrayAdapter mAdapter_des;
     private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
@@ -104,6 +115,10 @@ public class WantCarActivity extends AppCompatActivity implements ConnectionCall
         button_com_dep = (ImageButton)findViewById(R.id.publish_favorite_places_want);
         button_com_des = (ImageButton)findViewById(R.id.publish_favorite_places2_want);
 
+        radio_group = (RadioGroup)findViewById(R.id.radio_group);
+        sort_by_time = (RadioButton)findViewById(R.id.sort_by_time);
+        sort_by_distance = (RadioButton)findViewById(R.id.sort_by_distance);
+
         builder = new AlertDialog.Builder(this);
         show_dep = (AutoCompleteTextView)findViewById(R.id.dep_want);
         show_des = (AutoCompleteTextView)findViewById(R.id.des_want);
@@ -114,7 +129,7 @@ public class WantCarActivity extends AppCompatActivity implements ConnectionCall
                 des_dep = "dep";
                 PlaceArrayAdapter.PlaceAutocomplete item_dep = mAdapter_dep.getItem(position);
                 placeId = String.valueOf(item_dep.placeId);
-                Log.i( "Autocompletee", item_dep.description+"");
+                Log.i( "Autocomplete", item_dep.description+"");
                 PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeId);
                 placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
             }
@@ -198,7 +213,7 @@ public class WantCarActivity extends AppCompatActivity implements ConnectionCall
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("DATE",2);
+                bundle.putInt("DATE", 2);
 
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.setArguments(bundle);
@@ -213,7 +228,7 @@ public class WantCarActivity extends AppCompatActivity implements ConnectionCall
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("TIME",2);
+                bundle.putInt("TIME", 2);
                 DialogFragment newFragment = new TimePickerFragment();
                 newFragment.setArguments(bundle);
                 newFragment.show(getFragmentManager(), "timePicker");
@@ -261,15 +276,48 @@ public class WantCarActivity extends AppCompatActivity implements ConnectionCall
                 builder.create().show();
             }
         });
+        radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == sort_by_time.getId()) {
+                    SORT_FUNC = 1;
+                } else if (checkedId == sort_by_distance.getId()) {
+                    SORT_FUNC = 2;
+                }
+            }
+        });
         request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WantCarActivity.this, MainActivity.class);
-                intent.putExtra("user",myUserId);
-                startActivity(intent);
-                WantCarActivity.this.finish();
+                try {
+                    if (WANT_DATE != null && WANT_TIME != null && place1_id != null && place2_id != null && SORT_FUNC !=3) {
+                        String result = new WantCarAsync(WantCarActivity.this).execute().get();
+                        Log.i("chaoqun", result);
+                        Intent intent = new Intent();
+                        intent.putExtra("user", myUserId);
+                        intent.putExtra("request", result);
+                        intent.putExtra("sort_func", SORT_FUNC);
+                        intent.putExtra("request_date", WANT_DATE);
+                        intent.putExtra("request_time", WANT_TIME);
+                        intent.putExtra("request_dep", place1_id);
+                        intent.putExtra("request_des", place2_id);
+                        intent.putExtra("request_dep_lng", place1_lng);
+                        intent.putExtra("request_dep_lat", place1_lat);
+                        intent.putExtra("request_des_lng", place2_lng);
+                        intent.putExtra("request_des_lat", place2_lat);
+                        WantCarActivity.this.setResult(RESULT_OK, intent);
+                        WantCarActivity.this.finish();
+                        Toast.makeText(WantCarActivity.this, "Request successful!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(WantCarActivity.this, "Please fill are the fields", Toast.LENGTH_LONG).show();
+                    }
+                } catch (ExecutionException | InterruptedException ei) {
+                    ei.printStackTrace();
+                }
+
             }
         });
+
     }
     private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback
             = new ResultCallback<PlaceBuffer>() {

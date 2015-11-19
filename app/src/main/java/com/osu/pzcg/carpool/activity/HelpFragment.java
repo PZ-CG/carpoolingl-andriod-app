@@ -37,10 +37,11 @@ public class HelpFragment extends Fragment {
     public Spinner category;
     public ListView listView_main;
     public SpecialListAdapters SpecialListAdapters;
-    public String result;
     public JSONArray jArray_event;
     public String myUserId;
     public static MainActivity instance = null;
+    public List<ListCard> mCards=new ArrayList<ListCard>();;
+
 
 
     @Override
@@ -50,17 +51,17 @@ public class HelpFragment extends Fragment {
         createButton = (Button) view.findViewById(R.id.create_event);
         listView_main = (ListView)view.findViewById(R.id.listView_special);
         join = (Button) view.findViewById(R.id.join);
+        myUserId = getActivity().getIntent().getStringExtra("user");
         // default content
         try {
-            result = new MainEventAsync(getActivity()).execute().get();
+            String result = new MainEventAsync(getActivity()).execute().get();
             Log.i("z",result);
-        }
+            getItems(result);
+            SpecialListAdapters = new SpecialListAdapters(getActivity(),mCards,myUserId);
+            }
         catch (ExecutionException | InterruptedException ei) {
             ei.printStackTrace();
         }
-
-        myUserId = getActivity().getIntent().getStringExtra("user");
-        SpecialListAdapters = new SpecialListAdapters(getActivity(), getItems(),myUserId);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +75,7 @@ public class HelpFragment extends Fragment {
         listView_main.setAdapter(SpecialListAdapters);
 
         category = (Spinner) view.findViewById(R.id.category_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.category, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -88,23 +89,35 @@ public class HelpFragment extends Fragment {
                 String category = parent.getItemAtPosition(position).toString();
                 Log.i("zzzz", category);
 
-                if (category == "All") {
+                if (category.equals("All")) {
                     try {
-                        result = new MainEventAsync(getActivity()).execute().get();
-                        //Log.i("z", result);
+                        String result1 = new MainEventAsync(getActivity()).execute().get();
+                        Log.i("z", result1);
+                        mCards.clear();
+                        getItems(result1);
+                        SpecialListAdapters = new SpecialListAdapters(getActivity(), mCards, myUserId);
+                        listView_main.setAdapter(SpecialListAdapters);
                     } catch (ExecutionException | InterruptedException ei) {
                         ei.printStackTrace();
                     }
                 } else {
                     try {
-                        result = new SearchCategoryAsync(getActivity()).execute(category).get();
-                       // Log.i("z", result);
-                    } catch (ExecutionException | InterruptedException ei) {
-                        ei.printStackTrace();
-                    }
+                        String result2 = new SearchCategoryAsync(getActivity()).execute(category).get();
+
+                            mCards.clear();
+                            getItems(result2);
+                            SpecialListAdapters = new SpecialListAdapters(getActivity(), mCards, myUserId);
+                            listView_main.setAdapter(SpecialListAdapters);
+
+                        Log.i("guo", result2);
+                        }catch(ExecutionException | InterruptedException ei){
+                            ei.printStackTrace();
+                        }
+
                 }
 
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -114,9 +127,11 @@ public class HelpFragment extends Fragment {
         return view;
     }
 
-    public List<ListCard> getItems()
+
+//    public List<ListCard> getItems(String result)
+    public void getItems(String result)
+
     {
-        List<ListCard> mCards=new ArrayList<ListCard>();
         try{
             jArray_event = new JSONArray(result);
             JSONObject json_data=null;
@@ -128,14 +143,12 @@ public class HelpFragment extends Fragment {
                 String departure = json_data.getString("depName");
                 String seats = json_data.getString("available_seats");
                 ListCard mCard=new ListCard(name,time,event_name,departure,seats);
-
+                Log.i("guo",name+" "+time+" "+event_name+" "+departure+" "+seats);
                 mCards.add(mCard);
             }
         }catch(JSONException e1){
         }
 
-        return mCards;
-
     }
-
 }
+

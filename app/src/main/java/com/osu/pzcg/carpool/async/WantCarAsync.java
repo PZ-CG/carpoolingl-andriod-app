@@ -1,9 +1,5 @@
 package com.osu.pzcg.carpool.async;
 
-/**
- * Created by peihongzhong on 11/15/15.
- */
-
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -15,19 +11,24 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URLEncoder;
 
-public class SearchCategoryAsync extends AsyncTask<String, Void, String> {
+/**
+ * Created by GoThumbers on 11/8/15.
+ */
+
+public class WantCarAsync extends AsyncTask<String, Void, String> {
     private Context context;
-
-    public SearchCategoryAsync(Context context) {
+    public WantCarAsync(Context context) {
         this.context = context;
     }
     @Override
     protected String doInBackground(String... params) {
         try {
-            String category = params[0];
-            String link = "http://pzcg.biz/category_select.php?category="+ URLEncoder.encode(category);
+
+
+            String link = "http://pzcg.biz/want_a_car.php";
+            System.out.println(link);
+
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet();
             request.setURI(new URI(link));

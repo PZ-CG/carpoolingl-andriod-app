@@ -238,17 +238,16 @@ public class OfferCarActivity extends AppCompatActivity implements ConnectionCal
                                 seatsSum, place1_lng + "", place1_lat + "", place1_name + "", place2_lng + "", place2_lat + "", place2_name + "").get();
                         //Log.i("guo",result);
                         Toast.makeText(OfferCarActivity.this, "Publish successful!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(OfferCarActivity.this, MainActivity.class);
+                        intent.putExtra("user",myUserId);
+                        startActivity(intent);
+                        OfferCarActivity.this.finish();
                     } else {
                         Toast.makeText(OfferCarActivity.this, "Please fill are the fields", Toast.LENGTH_LONG).show();
                     }
                 } catch (ExecutionException | InterruptedException ei) {
                     ei.printStackTrace();
                 }
-
-                Intent intent = new Intent(OfferCarActivity.this, MainActivity.class);
-                intent.putExtra("user",myUserId);
-                startActivity(intent);
-                OfferCarActivity.this.finish();
 
             }
         });

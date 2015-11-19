@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="4"
-                android:hint="Enter Place Here!" />
+                android:hint="Type Place Here!" />
             <Button
                 android:id="@+id/choose_dep"
                 android:layout_width="0dp"
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="4"
-                android:hint="Enter Place Here!" />
+                android:hint="Type Place Here!" />
             <Button
                 android:id="@+id/choose_des"
                 android:layout_width="0dp"
