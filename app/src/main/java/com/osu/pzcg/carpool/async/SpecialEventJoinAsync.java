@@ -32,11 +32,10 @@ public class SpecialEventJoinAsync extends AsyncTask<String, Void, String> {
             String departure = params[3];
             String seats = params[4];
             String current = params[5];
-
-
+            //Log.i("just for test",username+time+event_name+departure+seats+current);
 
             String link = "http://pzcg.biz/join_event_carpool.php?initiator_name="+ URLEncoder.encode(username)+"&time="+URLEncoder.encode(time)+
-                    "&user_name="+URLEncoder.encode(current)+"&available_seats="+seats;
+                    "&user_name="+URLEncoder.encode(current)+"&available_seats="+URLEncoder.encode(seats);
             System.out.println(link);
 
             HttpClient client = new DefaultHttpClient();

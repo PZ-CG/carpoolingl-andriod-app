@@ -62,6 +62,7 @@ public class HelpFragment extends Fragment {
         catch (ExecutionException | InterruptedException ei) {
             ei.printStackTrace();
         }
+
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

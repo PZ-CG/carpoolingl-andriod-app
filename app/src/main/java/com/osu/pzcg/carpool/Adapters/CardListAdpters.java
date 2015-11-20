@@ -1,7 +1,6 @@
 package com.osu.pzcg.carpool.Adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +88,7 @@ public class CardListAdpters extends BaseAdapter{
                         }
                         else if (name != null && time != null && departure != null && destination != null && seats != 0 && current_user != null) {
                             String result = new JoinAsync(mContext).execute(name, time , departure, destination, (seats-1)+"",current_user).get();
-                            Log.i("guo", result);
+                            //Log.i("guo", result);
                             if (result!=null){
                                 Toast.makeText(mContext, "Join successful!", Toast.LENGTH_LONG).show();
 

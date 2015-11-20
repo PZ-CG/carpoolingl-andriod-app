@@ -53,20 +53,20 @@ public class SpecialListAdapters extends BaseAdapter{
     public View getView(int index, View mView, ViewGroup mParent)
     {
         ViewHolder mHolder=new ViewHolder();
-        mView= LayoutInflater.from(mContext).inflate(R.layout.list_card, null);
-        mHolder.cardTitle=(TextView)mView.findViewById(R.id.name);
+        mView= LayoutInflater.from(mContext).inflate(R.layout.special_card, null);
+        mHolder.cardTitle=(TextView)mView.findViewById(R.id.publisher);
         mHolder.cardTitle.setText(mCards.get(index).getName());
-        mHolder.cardTime=(TextView)mView.findViewById(R.id.time);
+        mHolder.cardTime=(TextView)mView.findViewById(R.id.time_special);
         mHolder.cardTime.setText(mCards.get(index).getTime());
-        mHolder.event_name=(TextView)mView.findViewById(R.id.departure);
+        mHolder.event_name=(TextView)mView.findViewById(R.id.event_name);
         mHolder.event_name.setText(mCards.get(index).getDeparture());
-        mHolder.departure=(TextView)mView.findViewById(R.id.destination);
+        mHolder.departure=(TextView)mView.findViewById(R.id.destination_special);
         mHolder.departure.setText(mCards.get(index).getDestination());
-        mHolder.cardSeats=(TextView)mView.findViewById(R.id.seat_left);
+        mHolder.cardSeats=(TextView)mView.findViewById(R.id.seat_left_special);
         mHolder.cardSeats.setText(mCards.get(index).getSeats());
 
 
-        Button b = (Button) mView.findViewById(R.id.join);
+        Button b = (Button) mView.findViewById(R.id.join_special);
         b.setTag(index);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +78,9 @@ public class SpecialListAdapters extends BaseAdapter{
                 String time = mCards.get((Integer) (v.getTag())).getTime();
                 String event_name = mCards.get((Integer) (v.getTag())).getDeparture();
                 String departure = mCards.get((Integer) (v.getTag())).getDestination();
+
                 int seats = Integer.parseInt(mCards.get((Integer) (v.getTag())).getSeats());
+                Log.i("HOPE IT WILL BE FINE",name + time + event_name + departure + seats + current_user + "");
                 try {
                     if (name == current_user) {
                         Toast.makeText(mContext, "YOU CAN'T JOIN THE CARPOOL YOU INITIATE!", Toast.LENGTH_SHORT).show();
