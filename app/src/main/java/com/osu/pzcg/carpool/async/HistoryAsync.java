@@ -26,7 +26,9 @@ public class HistoryAsync extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         try {
             String username = params[0];
-            String link = "http://pzcg.biz/history.php?user_name="+username;
+            String filename = params[1];
+
+            String link = "http://pzcg.biz/"+filename+".php?user_name="+username;
             Log.i("guo",link);
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet();

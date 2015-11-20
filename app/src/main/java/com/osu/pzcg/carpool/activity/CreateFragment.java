@@ -148,7 +148,7 @@ public class CreateFragment extends Fragment {
                         Date temp_time=sdf.parse(time);
                         ListCard mCard = new ListCard(name, time, dep, des, seats);
                         temp_cards.add(mCard);
-                        double diff = Math.abs(req_time.getTime()-temp_time.getTime());
+                        double diff = Math.abs((req_time.getTime()-temp_time.getTime())/100000);
                         diffMap.put(i + "", diff);
                     }
                     System.out.println("Before ranking：" + diffMap);
@@ -156,7 +156,7 @@ public class CreateFragment extends Fragment {
                     Collections.sort(sorted_diff, new Comparator<Map.Entry<String, Double>>() {
                         public int compare(Map.Entry<String, Double> o1,
                                            Map.Entry<String, Double> o2) {
-                            return (o1.getValue()).toString().compareTo(o2.getValue().toString());
+                            return (o1.getValue().compareTo(o2.getValue()));
                         }
                     });
                     System.out.println("After ranking：" + sorted_diff);
@@ -203,7 +203,7 @@ public class CreateFragment extends Fragment {
                 Collections.sort(sorted_diff, new Comparator<Map.Entry<String, Double>>() {
                     public int compare(Map.Entry<String, Double> o1,
                                        Map.Entry<String, Double> o2) {
-                        return (o1.getValue()).toString().compareTo(o2.getValue().toString());
+                        return (o1.getValue().compareTo(o2.getValue()));
                     }
                 });
                 System.out.println("After ranking：" + sorted_diff);
